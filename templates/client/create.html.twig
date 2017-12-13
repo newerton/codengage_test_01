@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set page_title = 'Adicionar cliente' %}
+{% set controller = 'client' %}
+
+{% block body_id 'client_create' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block main %}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.birthday) }}
+
+    <button type="submit" class="btn btn-primary">
+        Salvar
+    </button>
+    {{ form_widget(form.saveAndCreateNew, {label: 'Salvar e adicionar novo', attr: {class: 'btn btn-primary'}}) }}
+    <a href="{{ path('client_index') }}" class="btn btn-link">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Voltar
+    </a>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% set page_title = 'Adicionar produto' %}
+{% set controller = 'product' %}
+
+{% block body_id 'product_create' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block main %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-sm-3">
+            {{ form_row(form.code) }}
+        </div>
+        <div class="col-sm-9">
+            {{ form_row(form.name) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            {{ form_row(form.price) }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        Salvar
+    </button>
+    {{ form_widget(form.saveAndCreateNew, {label: 'Salvar e adicionar novo', attr: {class: 'btn btn-primary'}}) }}
+    <a href="{{ path('product_index') }}" class="btn btn-link">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Voltar
+    </a>
+    {{ form_end(form) }}
+{% endblock %}

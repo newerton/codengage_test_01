@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+{% set page_title = "Pedidos" %}
+{% set controller = 'default' %}
+
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="well text-center p-xxl">
+                <a href="{{ path('client_index') }}">
+                    <i class="fa fa-user fa-4x"></i><br /><br />
+                    CLIENTES
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="well text-center p-xxl">
+                <a href="{{ path('product_index') }}">
+                    <i class="fa fa-archive fa-4x"></i><br /><br />
+                    PRODUTOS
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="well text-center p-xxl">
+                <a href="{{ path('order_index') }}">
+                    <i class="fa fa-book fa-4x"></i><br /><br />
+                    PEDIDOS
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

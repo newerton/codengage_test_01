@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% set page_title = 'Adicionar pedido' %}
+{% set controller = 'order' %}
+
+{% block body_id 'order_create' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block main %}
+    {% import _self as formMacros %}
+
+    {% macro printItems(item) %}
+        <td>{{ form_widget(item.product) }}</td>
+        <td>{{ form_widget(item.quant) }}</td>
+        <td>
+            {{ form_widget(item.discount) }}
+            {{ form_widget(item.price) }}
+        </td>
+    {% endmacro %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.client) }}
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Desconto</th>
+            <th width="1%" nowrap="nowrap"></th>
+        </tr>
+        </thead>
+        <tbody class="items" data-prototype="{{ formMacros.printItems(form.items.vars.prototype)|e('html_attr') }}">
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <a href="javascript:void(0);" class="add_order_item btn btn-success">
+                    <i class="fa fa-plus"></i> Adicionar Item
+                </a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <button type="submit" class="btn btn-primary">
+        Salvar
+    </button>
+    {{ form_widget(form.saveAndCreateNew, {label: 'Salvar e adicionar novo', attr: {class: 'btn btn-primary'}}) }}
+    <a href="{{ path('order_index') }}" class="btn btn-link">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Voltar
+    </a>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="text/javascript">
+        $(document.body).on('change', '[id^="order_items_"][id$="_product"]', function () {
+            var that = $(this);
+            var id = that.attr('id');
+
+            if (that.val() !== '') {
+                $.ajax({
+                    type: "GET",
+                    url: '{{ path('order_product_price') }}',
+                    data: {id: that.val()},
+                    success: function (value) {
+                        var priceId = id.replace('product', 'price');
+                        $('#' + priceId).val(value);
+                    }
+                });
+            }
+
+            return false;
+        });
+    </script>
+{% endblock footer_scripts %}

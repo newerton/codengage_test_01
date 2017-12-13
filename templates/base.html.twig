@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Test Codengage{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet"
+              href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css') }}">
+        <link rel="stylesheet"
+              href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css') }}">
+        <link rel="stylesheet"
+              href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/css/margin-padding-custom.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+
+<body id="{% block body_id %}{% endblock %}">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Codengage Test</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('default_index') }}">Dashboard</a></li>
+                <li><a href="{{ path('client_index') }}">Clientes</a></li>
+                <li><a href="{{ path('product_index') }}">Produtos</a></li>
+                <li><a href="{{ path('order_index') }}">Pedidos</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li{% if controller == 'default' %} class="active"{% endif %}>
+                    <a href="{{ path('default_index') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li{% if controller == 'client' %} class="active"{% endif %}>
+                    <a href="{{ path('client_index') }}"><i class="fa fa-users"></i> Clientes</a>
+                </li>
+                <li{% if controller == 'product' %} class="active"{% endif %}>
+                    <a href="{{ path('product_index') }}"><i class="fa fa-archive"></i> Produtos</a>
+                </li>
+                <li{% if controller == 'order' %} class="active"{% endif %}>
+                    <a href="{{ path('order_index') }}"><i class="fa fa-book"></i> Pedidos</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">{{ page_title }}</h1>
+            {% block body %}
+                {{ include('default/_flash_messages.html.twig') }}
+                {% block main %}{% endblock %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.pt-BR.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js') }}"></script>
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}
+</body>
+</html>
