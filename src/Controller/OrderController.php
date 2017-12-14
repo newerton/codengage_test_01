@@ -67,31 +67,6 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/update/{id}", name="order_update")
-     * @Method({"GET", "POST"})
-     */
-    public function update(Request $request, Order $model)
-    {
-        $form = $this->createForm(OrderType::class, $model)
-            ->add('saveAndCreateNew', SubmitType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Atualizado com sucesso!');
-            if ($form->get('saveAndCreateNew')->isClicked()) {
-                return $this->redirectToRoute('order_create');
-            }
-            return $this->redirectToRoute('order_index');
-        }
-
-        return $this->render('order/update.html.twig', [
-            'model' => $model,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @param Order $model
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
